@@ -5,7 +5,11 @@ const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const prisma = new PrismaClient();
+const globalForPrisma = globalThis;
+if (!globalForPrisma.prisma) {
+	globalForPrisma.prisma = new PrismaClient();
+}
+const prisma = globalForPrisma.prisma;
 const app = express();
 
 
@@ -107,4 +111,6 @@ app.post('/api/auth/login', async (req, res) => {
 
 
 
-module.exports = app;
+const handler = (req, res) => app(req, res);
+module.exports = handler;
+module.exports.app = app;
