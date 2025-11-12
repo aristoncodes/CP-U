@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "prisma generate && prisma db push"
+    "vercel-build": "prisma generate && prisma db push",
+    "postinstall" : "npx prisma migrate deploy && npx prisma generate"
   },
   "keywords": [],
   "author": "",

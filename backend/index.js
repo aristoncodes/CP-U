@@ -31,11 +31,11 @@ app.use(cors({
 	origin: function (origin, callback) {
 		if (!origin) return callback(null, true); // allow curl/postman
 		const normalized = normalizeOrigin(origin);
-		if (allowedOrigins.includes(normalized)) {
-			return callback(null, true);
-		}
-		// Disallow without throwing to avoid 500s on OPTIONS
-		return callback(null, false);
+		const isAllowed =
+			allowedOrigins.includes(normalized) ||
+			/^https:\/\/.*\.vercel\.app$/.test(normalized) ||
+			/^http:\/\/localhost(:\d+)?$/.test(normalized);
+		return callback(null, isAllowed);
 	},
 	credentials: true,
 	optionsSuccessStatus: 204,
@@ -46,33 +46,37 @@ app.use(express.json());
 
 
 
+app.get("/", (req, res) => {
+  res.status(404).json({ ok: true, message: "Use /api/* endpoints" });
+});
+
 app.get("/api/test", (req, res) => {
   res.json({ message: "Backend is LIVE!" });
 });
 
 app.post('/api/auth/signup', async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required' });
-  }
-
   try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
     const passwordHash = await bcrypt.hash(password, 10);
-    
     const user = await prisma.user.create({
       data: { email, passwordHash },
     });
-
     res.status(201).json({ message: 'User created successfully' });
-
   } catch (e) {
-
-    if (e.code === 'P2002') { 
+    if (e.code === 'P2002') {
       return res.status(400).json({ error: 'Email already exists' });
     }
-    console.error(e);
-    res.status(500).json({ error: 'Something went wrong' });
+    if (e.code === 'P1000') {
+      return res.status(500).json({ error: 'Database authentication failed (P1000)' });
+    }
+    if (e.code === 'P1001') {
+      return res.status(500).json({ error: 'Database not reachable (P1001)' });
+    }
+    console.error('Signup failed:', e);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
