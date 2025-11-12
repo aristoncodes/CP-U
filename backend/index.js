@@ -10,6 +10,12 @@ const app = express();
 
 
 
+const requiredEnvVars = ['DATABASE_URL', 'JWT_SECRET'];
+const missingVars = requiredEnvVars.filter((key) => !process.env[key]);
+if (missingVars.length) {
+	console.error(`Missing required environment variables: ${missingVars.join(', ')}`);
+}
+
 const allowedOrigins = [
 	process.env.WEB_ORIGIN,
 	process.env.WEB_ORIGIN_2,
@@ -79,7 +85,12 @@ app.post('/api/auth/login', async (req, res) => {
   }
 
 
-  const token = jwt.sign(
+	if (!process.env.JWT_SECRET) {
+		console.error('JWT_SECRET is not defined');
+		return res.status(500).json({ error: 'Server configuration error' });
+	}
+
+	const token = jwt.sign(
     { userId: user.id, email: user.email }, 
     process.env.JWT_SECRET,                
     { expiresIn: '1h' }                  
@@ -93,5 +104,4 @@ app.post('/api/auth/login', async (req, res) => {
 
 
 
-// Export a serverless handler compatible with Vercel's @vercel/node
-module.exports = (req, res) => app(req, res);
+module.exports = app;
