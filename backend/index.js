@@ -9,9 +9,11 @@ const prisma = new PrismaClient();
 const app = express();
 
 
+
 const allowedOrigins = [process.env.WEB_ORIGIN]; 
 app.use(cors({ 
     origin: function (origin, callback) {
+
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
@@ -20,14 +22,13 @@ app.use(cors({
     }
 }));
 
-
 app.use(express.json());
+
 
 
 app.get("/api/test", (req, res) => {
   res.json({ message: "Backend is LIVE!" });
 });
-
 
 app.post('/api/auth/signup', async (req, res) => {
   const { email, password } = req.body;
@@ -46,6 +47,7 @@ app.post('/api/auth/signup', async (req, res) => {
     res.status(201).json({ message: 'User created successfully' });
 
   } catch (e) {
+
     if (e.code === 'P2002') { 
       return res.status(400).json({ error: 'Email already exists' });
     }
@@ -66,7 +68,6 @@ app.post('/api/auth/login', async (req, res) => {
     return res.status(400).json({ error: 'Invalid email or password' });
   }
 
-
   const isMatch = await bcrypt.compare(password, user.passwordHash);
   if (!isMatch) {
     return res.status(400).json({ error: 'Invalid email or password' });
@@ -76,7 +77,7 @@ app.post('/api/auth/login', async (req, res) => {
   const token = jwt.sign(
     { userId: user.id, email: user.email }, 
     process.env.JWT_SECRET,                
-    { expiresIn: '1h' }                     
+    { expiresIn: '1h' }                  
   );
 
   res.json({ 
@@ -86,5 +87,5 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server on ${PORT}`));
+
+module.exports = app;
