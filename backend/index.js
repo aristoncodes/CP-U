@@ -68,38 +68,41 @@ app.post('/api/auth/signup', async (req, res) => {
 });
 
 app.post('/api/auth/login', async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
 
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required' });
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+
+    if (!process.env.JWT_SECRET) {
+      console.error('JWT_SECRET is not defined');
+      return res.status(500).json({ error: 'Server configuration error' });
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.json({
+      message: "Login successful",
+      token: token
+    });
+  } catch (e) {
+    console.error('Login failed:', e);
+    res.status(500).json({ error: 'Internal server error' });
   }
-
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) {
-    return res.status(400).json({ error: 'Invalid email or password' });
-  }
-
-  const isMatch = await bcrypt.compare(password, user.passwordHash);
-  if (!isMatch) {
-    return res.status(400).json({ error: 'Invalid email or password' });
-  }
-
-
-	if (!process.env.JWT_SECRET) {
-		console.error('JWT_SECRET is not defined');
-		return res.status(500).json({ error: 'Server configuration error' });
-	}
-
-	const token = jwt.sign(
-    { userId: user.id, email: user.email }, 
-    process.env.JWT_SECRET,                
-    { expiresIn: '1h' }                  
-  );
-
-  res.json({ 
-    message: "Login successful",
-    token: token 
-  });
 });
 
 
