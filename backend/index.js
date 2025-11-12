@@ -19,20 +19,27 @@ if (missingVars.length) {
 	console.error(`Missing required environment variables: ${missingVars.join(', ')}`);
 }
 
+const normalizeOrigin = (o) => (o ? o.replace(/\/+$/, '') : o);
 const allowedOrigins = [
-	process.env.WEB_ORIGIN,
-	process.env.WEB_ORIGIN_2,
-	process.env.WEB_ORIGIN_3
+	normalizeOrigin(process.env.WEB_ORIGIN),
+	normalizeOrigin(process.env.WEB_ORIGIN_2),
+	normalizeOrigin(process.env.WEB_ORIGIN_3),
+	'http://localhost:3000',
+	'http://localhost:5173'
 ].filter(Boolean);
 app.use(cors({
 	origin: function (origin, callback) {
 		if (!origin) return callback(null, true); // allow curl/postman
-		if (allowedOrigins.includes(origin)) {
+		const normalized = normalizeOrigin(origin);
+		if (allowedOrigins.includes(normalized)) {
 			return callback(null, true);
 		}
-		return callback(new Error('Not allowed by CORS'));
+		// Disallow without throwing to avoid 500s on OPTIONS
+		return callback(null, false);
 	},
-	credentials: true
+	credentials: true,
+	optionsSuccessStatus: 204,
+	preflightContinue: false
 }));
 
 app.use(express.json());
