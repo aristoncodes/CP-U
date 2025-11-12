@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 function AuthPage() {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,10 +27,11 @@ function AuthPage() {
 
         const token = res.data.token;
         localStorage.setItem('token', token); 
-        setMessage(`Login Success! Your token is: ${token}`);
+        setMessage('Login Success! Redirecting to problems...');
         
 
         console.log("Token saved:", token);
+        setTimeout(() => navigate('/problems'), 500);
         
       } else {
 

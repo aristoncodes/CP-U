@@ -11,4 +11,30 @@ model User {
   id           String @id @default(cuid())
   email        String @unique
   passwordHash String
+  submissions  Submission[]
+}
+
+model Problem {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  title       String
+  difficulty  String
+  statement   String
+  inputSpec   String?
+  outputSpec  String?
+  constraints String?
+  createdAt   DateTime @default(now())
+  submissions Submission[]
+}
+
+model Submission {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  language   String
+  source     String
+  verdict    String   @default("QUEUED")
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  problem    Problem  @relation(fields: [problemId], references: [id])
+  problemId  String
 }

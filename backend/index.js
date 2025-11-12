@@ -54,6 +54,40 @@ app.get("/api/test", (req, res) => {
   res.json({ message: "Backend is LIVE!" });
 });
 
+// Problems APIs
+app.get('/api/problems', async (req, res) => {
+  try {
+    const problems = await prisma.problem.findMany({
+      select: { id: true, code: true, title: true, difficulty: true, createdAt: true }
+    });
+    res.json({ problems });
+  } catch (e) {
+    console.error('Fetch problems failed:', e);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/api/problems/seed', async (req, res) => {
+  try {
+    const sample = [
+      { code: 'A1', title: 'Two Sum', difficulty: 'Easy', statement: '...', inputSpec: '', outputSpec: '', constraints: '' },
+      { code: 'B1', title: 'Bracket Sequence', difficulty: 'Medium', statement: '...', inputSpec: '', outputSpec: '', constraints: '' },
+      { code: 'C1', title: 'Graph Paths', difficulty: 'Hard', statement: '...', inputSpec: '', outputSpec: '', constraints: '' },
+    ];
+    for (const p of sample) {
+      await prisma.problem.upsert({
+        where: { code: p.code },
+        update: {},
+        create: p
+      });
+    }
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('Seed problems failed:', e);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.post('/api/auth/signup', async (req, res) => {
   try {
     const { email, password } = req.body;
