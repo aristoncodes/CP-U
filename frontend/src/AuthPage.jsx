@@ -44,44 +44,50 @@ function AuthPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input 
-            type="email" 
+    <div className="max-w-md">
+      <h2 className="mb-4 text-lg font-semibold text-gray-100">
+        {isLogin ? 'Login' : 'Sign Up'}
+      </h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <label className="text-sm text-gray-400">Email</label>
+          <input
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required 
-            style={{ width: '100%', padding: '8px', margin: '8px 0' }}
+            required
+            className="w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-gray-100 placeholder-gray-500 outline-none ring-0 transition focus:border-cpprimary focus:outline-none"
+            placeholder="you@example.com"
           />
         </div>
-        <div>
-          <label>Password:</label>
-          <input 
+        <div className="space-y-2">
+          <label className="text-sm text-gray-400">Password</label>
+          <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', margin: '8px 0' }}
+            className="w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-gray-100 placeholder-gray-500 outline-none ring-0 transition focus:border-cpprimary"
+            placeholder="••••••••"
           />
         </div>
-        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer' }}>
+        <button
+          type="submit"
+          className="inline-flex w-full items-center justify-center rounded-md bg-cpprimary px-4 py-2 text-sm font-medium text-gray-900 transition hover:bg-cpprimaryDark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cpprimary/60"
+        >
           {isLogin ? 'Login' : 'Sign Up'}
         </button>
       </form>
-      <button 
-        onClick={() => setIsLogin(!isLogin)} 
-        style={{ marginTop: '10px', background: 'none', border: 'none', color: 'blue', cursor: 'pointer' }}
+      <button
+        onClick={() => setIsLogin(!isLogin)}
+        className="mt-3 w-full text-left text-sm text-cpprimary hover:text-cpprimaryDark transition"
       >
         {isLogin ? 'Need an account? Sign Up' : 'Have an account? Login'}
       </button>
 
-
       {message && (
-        <div style={{ marginTop: '20px', padding: '10px', background: '#f0f0f0', border: '1px solid #ccc', borderRadius: '5px' }}>
-          <p style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{message}</p>
+        <div className="mt-4 rounded-md border border-gray-800 bg-gray-900 p-3 text-sm text-gray-200">
+          <p className="whitespace-pre-wrap break-words m-0">{message}</p>
         </div>
       )}
     </div>

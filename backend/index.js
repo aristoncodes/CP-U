@@ -10,17 +10,22 @@ const app = express();
 
 
 
-const allowedOrigins = [process.env.WEB_ORIGIN]; 
-app.use(cors({ 
-    origin: function (origin, callback) {
-
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    }
+const allowedOrigins = [
+	process.env.WEB_ORIGIN,
+	process.env.WEB_ORIGIN_2,
+	process.env.WEB_ORIGIN_3
+].filter(Boolean);
+app.use(cors({
+	origin: function (origin, callback) {
+		if (!origin) return callback(null, true); // allow curl/postman
+		if (allowedOrigins.includes(origin)) {
+			return callback(null, true);
+		}
+		return callback(new Error('Not allowed by CORS'));
+	},
+	credentials: true
 }));
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -88,4 +93,5 @@ app.post('/api/auth/login', async (req, res) => {
 
 
 
-module.exports = app;
+// Export a serverless handler compatible with Vercel's @vercel/node
+module.exports = (req, res) => app(req, res);
