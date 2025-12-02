@@ -20,7 +20,17 @@ const UserSchema = new mongoose.Schema({
             rating: { type: Number, default: 0 },
             rank: { type: String, default: 'Newbie' },
             maxRating: { type: Number, default: 0 },
-            problemsSolved: { type: Number, default: 0 }
+            problemsSolved: { type: Number, default: 0 },
+            lastContest: {
+                contestId: { type: Number, default: 0 },
+                contestName: { type: String, default: '' },
+                timeSeconds: { type: Number, default: 0 }
+            },
+            missedContests: [{
+                id: Number,
+                name: String,
+                startTime: Number
+            }]
         },
         leetcode: {
             totalSolved: { type: Number, default: 0 },

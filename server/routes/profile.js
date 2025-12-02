@@ -68,12 +68,27 @@ router.get('/stats', auth, async (req, res) => {
                         problemsSolved: problemsSolved
                     };
 
+                    // Preserve lastContest and missedContests from DB if they exist
+                    if (user.stats?.codeforces?.lastContest) {
+                        newCfStats.lastContest = user.stats.codeforces.lastContest;
+                    }
+                    if (user.stats?.codeforces?.missedContests) {
+                        newCfStats.missedContests = user.stats.codeforces.missedContests;
+                    }
+
                     // Update stats object
                     stats.codeforces = newCfStats;
 
-                    // Update user object for persistence
+                    // Update user object for persistence (without overwriting contest data)
                     if (!user.stats) user.stats = {};
-                    user.stats.codeforces = newCfStats;
+                    if (!user.stats.codeforces) user.stats.codeforces = {};
+
+                    user.stats.codeforces.rating = newCfStats.rating;
+                    user.stats.codeforces.rank = newCfStats.rank;
+                    user.stats.codeforces.maxRating = newCfStats.maxRating;
+                    user.stats.codeforces.problemsSolved = newCfStats.problemsSolved;
+                    // Don't overwrite lastContest or missedContests - those are only set by sync
+
                     needsSave = true;
                 }
             } catch (err) {
@@ -103,14 +118,22 @@ router.get('/stats', auth, async (req, res) => {
             }
         }
 
+
         // Save updated stats to DB if any changes
         if (needsSave) {
-            await user.save();
+            try {
+                await user.save();
+            } catch (saveErr) {
+                console.error('❌ Error saving user stats:', saveErr);
+                console.error('Validation errors:', saveErr.errors);
+                // Don't throw - return the stats even if save fails
+            }
         }
 
         res.json(stats);
     } catch (err) {
-        console.error(err.message);
+        console.error('❌ /api/profile/stats Error:', err.message);
+        console.error('Stack:', err.stack);
         res.status(500).send('Server Error');
     }
 });
