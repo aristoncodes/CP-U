@@ -113,30 +113,30 @@ export default function ProfilePage() {
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+            <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-950">
                 <div className="text-center">
-                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-zinc-700 border-t-white mx-auto"></div>
-                    <p className="mt-4 text-gray-400">Loading profile...</p>
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 dark:border-zinc-700 border-t-gray-900 dark:border-t-white mx-auto"></div>
+                    <p className="mt-4 text-gray-600 dark:text-white">Loading profile...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-zinc-950">
+        <div className="min-h-screen bg-white dark:bg-zinc-950">
             <Navbar />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mb-8 flex justify-between items-end">
-                    <div>
-                        <h1 className="text-3xl font-bold text-white">My Profile</h1>
-                        <p className="text-gray-400 mt-1">Your competitive programming stats and achievements</p>
+                    <div className="mb-8 border-l-4 border-blue-500 pl-4">
+                        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2 glow-text">{profileData.user.name}'s Profile</h1>
+                        <p className="text-gray-600 dark:text-blue-300">Track your competitive programming journey stats and achievements</p>
                     </div>
                     <button
                         onClick={handleSync}
                         disabled={syncing}
-                        className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-50"
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all flex items-center gap-2 disabled:opacity-50 border-2 border-blue-500 btn-arcade"
                     >
                         {syncing ? (
                             <>
@@ -174,7 +174,7 @@ export default function ProfilePage() {
                             />
 
                             {/* Key Stats Card */}
-                            <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+                            <div className="rounded-lg border-2 border-blue-500/50 bg-white dark:bg-zinc-900 p-6 pixel-border">
                                 <h3 className="text-xl font-bold text-white mb-6">Key Stats</h3>
                                 <div className="space-y-4">
                                     <div>

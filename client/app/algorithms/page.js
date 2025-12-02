@@ -52,10 +52,10 @@ export default function AlgorithmsPage() {
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+            <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-950">
                 <div className="text-center">
-                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-zinc-700 border-t-white mx-auto"></div>
-                    <p className="mt-4 text-gray-400">Loading topics...</p>
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 dark:border-zinc-700 border-t-gray-900 dark:border-t-white mx-auto"></div>
+                    <p className="mt-4 text-gray-600 dark:text-white">Loading topics...</p>
                 </div>
             </div>
         );
@@ -71,14 +71,14 @@ export default function AlgorithmsPage() {
     const tiers = ['Bronze', 'Silver', 'Gold', 'Platinum'];
 
     return (
-        <div className="min-h-screen bg-zinc-950">
+        <div className="min-h-screen bg-white dark:bg-zinc-950">
             <Navbar />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-white">USACO Algorithm Guide</h1>
-                    <p className="mt-2 text-gray-400">Master competitive programming from Bronze to Platinum</p>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">USACO Algorithm Guide</h1>
+                    <p className="mt-2 text-gray-600 dark:text-gray-200">Master competitive programming from Bronze to Platinum</p>
                 </div>
 
                 {/* Topics by Tier */}
@@ -89,8 +89,8 @@ export default function AlgorithmsPage() {
                     return (
                         <div key={tier} className="mb-12">
                             {/* Tier Header */}
-                            <div className="mb-6 flex items-center gap-3">
-                                <h2 className="text-2xl font-bold text-white">{tier} Tier</h2>
+                            <div className="mb-6 flex items-center gap-3 border-l-4 border-blue-500 pl-4">
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white font-retro text-blue-500">{tier} Tier</h2>
                                 <span className="px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-gray-300">
                                     {tierTopics.length} {tierTopics.length === 1 ? 'topic' : 'topics'}
                                 </span>
@@ -105,7 +105,7 @@ export default function AlgorithmsPage() {
                                         <Link
                                             key={topic._id}
                                             href={`/algorithms/${topic.slug}`}
-                                            className={`group rounded-lg border ${tierColors[tier]} bg-gradient-to-br p-6 shadow-sm transition-all hover:shadow-lg`}
+                                            className="group rounded-lg border-2 border-blue-500/50 hover:border-blue-500 transition-all hover:scale-105 bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-950 p-6 pixel-border"
                                         >
                                             {/* Icon */}
                                             <div className="mb-4 inline-flex rounded-lg p-3 bg-zinc-800">

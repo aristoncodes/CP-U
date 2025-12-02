@@ -110,17 +110,17 @@ export default function UpsolvePage() {
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+            <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-950">
                 <div className="text-center">
-                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-zinc-700 border-t-white mx-auto"></div>
-                    <p className="mt-4 text-gray-400">Loading your queue...</p>
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 dark:border-zinc-700 border-t-gray-900 dark:border-t-white mx-auto"></div>
+                    <p className="mt-4 text-gray-600 dark:text-white">Loading your queue...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-zinc-950">
+        <div className="min-h-screen bg-white dark:bg-zinc-950">
             <Navbar />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -129,16 +129,16 @@ export default function UpsolvePage() {
                     <div className="flex-1">
                         {/* Header */}
                         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                            <div>
-                                <h1 className="text-3xl font-bold text-white">Upsolve Queue</h1>
-                                <p className="mt-2 text-gray-400">
+                            <div className="border-l-4 border-blue-500 pl-4">
+                                <h1 className="text-3xl font-bold text-gray-900 dark:text-white glow-text">Upsolve Queue</h1>
+                                <p className="mt-2 text-gray-600 dark:text-blue-300">
                                     Problems you attempted but haven't solved yet.
                                 </p>
                             </div>
                             <button
                                 onClick={handleSync}
                                 disabled={syncing}
-                                className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
+                                className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition-all hover:bg-blue-700 disabled:opacity-50 btn-arcade border-2 border-blue-500"
                             >
                                 <RefreshCw className={`h-5 w-5 ${syncing ? 'animate-spin' : ''}`} />
                                 {syncing ? 'Syncing...' : 'Sync Now'}
@@ -154,7 +154,7 @@ export default function UpsolvePage() {
 
                         {/* Problems List */}
                         {problems.length === 0 ? (
-                            <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-12 text-center">
+                            <div className="rounded-lg border-2 border-blue-500/50 bg-white dark:bg-zinc-900 p-12 text-center pixel-border">
                                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-800">
                                     <CheckCircle className="h-8 w-8 text-green-500" />
                                 </div>
@@ -168,8 +168,7 @@ export default function UpsolvePage() {
                                 {problems.map((problem) => (
                                     <div
                                         key={problem._id}
-                                        className="group flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 p-4 transition-all hover:border-zinc-700"
-                                    >
+                                        className="group flex flex-col gap-4 rounded-lg border-2 border-blue-500/50 bg-white dark:bg-zinc-900 p-6 transition-all hover:border-blue-500 sm:flex-row sm:items-start sm:justify-between pixel-border"                                  >
                                         <div className="flex items-center gap-4">
                                             {/* Platform Icon/Badge */}
                                             <span className={`flex h-10 w-10 items-center justify-center rounded-lg text-xs font-bold uppercase ${problem.platform === 'codeforces'

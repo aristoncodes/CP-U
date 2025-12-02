@@ -93,10 +93,10 @@ export default function AlgorithmTopicPage() {
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center bg-white">
+            <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-950">
                 <div className="text-center">
-                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-black mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading topic...</p>
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 dark:border-zinc-700 border-t-gray-900 dark:border-t-white mx-auto"></div>
+                    <p className="mt-4 text-gray-600 dark:text-white">Loading topic...</p>
                 </div>
             </div>
         );
@@ -107,7 +107,7 @@ export default function AlgorithmTopicPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white dark:bg-zinc-950">
             <Navbar />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -116,16 +116,16 @@ export default function AlgorithmTopicPage() {
                     <aside className="hidden lg:block w-64 flex-shrink-0">
                         <div className="sticky top-8">
                             {/* Topic Info */}
-                            <div className="mb-8 p-4 rounded-lg bg-gray-50 border border-gray-200">
-                                <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 mb-2">
+                            <div className="mb-8 p-4 rounded-lg bg-gray-50 dark:bg-zinc-900 border-2 border-blue-500/50 pixel-border">
+                                <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
                                     Topic Info
                                 </h3>
-                                <p className="text-sm text-gray-700 mb-3">
+                                <p className="text-sm text-gray-700 dark:text-gray-100 mb-3">
                                     {topic.problems?.length || 0} practice problems
                                 </p>
                                 <a
                                     href="#problems"
-                                    className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                                    className="text-sm text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 hover:underline"
                                 >
                                     Jump to problems →
                                 </a>
@@ -134,7 +134,7 @@ export default function AlgorithmTopicPage() {
                             {/* Back to Topics */}
                             <Link
                                 href="/algorithms"
-                                className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors"
+                                className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
                             >
                                 ← Back to Topics
                             </Link>
@@ -144,17 +144,17 @@ export default function AlgorithmTopicPage() {
                     {/* Main Content - Max Width 800px */}
                     <main className="flex-1 max-w-[800px]">
                         {/* Hero Section */}
-                        <div className="mb-12">
+                        <div className="mb-12 border-l-4 border-blue-500 pl-6">
                             <div className="mb-4">
                                 <span className="px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-gray-300">
                                     {topic.tier} Tier
                                 </span>
                             </div>
-                            <h1 className="text-5xl font-bold text-black mb-4">{topic.title}</h1>
-                            <p className="text-lg text-gray-600 mb-4">{topic.summary}</p>
+                            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4 glow-text">{topic.title}</h1>
+                            <p className="text-lg text-gray-600 dark:text-gray-200 mb-4">{topic.summary}</p>
                             <div className="flex flex-wrap gap-2">
                                 {topic.tags.map((tag, idx) => (
-                                    <span key={idx} className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                                    <span key={idx} className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-100">
                                         {tag}
                                     </span>
                                 ))}
@@ -167,14 +167,14 @@ export default function AlgorithmTopicPage() {
                                 remarkPlugins={[remarkMath]}
                                 rehypePlugins={[rehypeKatex]}
                                 components={{
-                                    h1: ({ node, ...props }) => <h2 className="text-3xl font-bold text-black mb-6 mt-8" {...props} />,
-                                    h2: ({ node, ...props }) => <h3 className="text-2xl font-bold text-black mt-8 mb-4" {...props} />,
-                                    h3: ({ node, ...props }) => <h4 className="text-xl font-semibold text-black mt-6 mb-3" {...props} />,
-                                    p: ({ node, ...props }) => <p className="text-gray-700 mb-4 leading-relaxed" {...props} />,
-                                    ul: ({ node, ...props }) => <ul className="list-disc list-outside text-gray-700 space-y-2 mb-4 ml-6" {...props} />,
-                                    ol: ({ node, ...props }) => <ol className="list-decimal list-outside text-gray-700 space-y-2 mb-4 ml-6" {...props} />,
-                                    li: ({ node, ...props }) => <li className="text-gray-700" {...props} />,
-                                    strong: ({ node, ...props }) => <strong className="font-bold text-gray-900" {...props} />,
+                                    h1: ({ node, ...props }) => <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 mt-8" {...props} />,
+                                    h2: ({ node, ...props }) => <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4" {...props} />,
+                                    h3: ({ node, ...props }) => <h4 className="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-3" {...props} />,
+                                    p: ({ node, ...props }) => <p className="text-gray-700 dark:text-gray-100 mb-4 leading-relaxed" {...props} />,
+                                    ul: ({ node, ...props }) => <ul className="list-disc list-outside text-gray-700 dark:text-gray-100 space-y-2 mb-4 ml-6" {...props} />,
+                                    ol: ({ node, ...props }) => <ol className="list-decimal list-outside text-gray-700 dark:text-gray-100 space-y-2 mb-4 ml-6" {...props} />,
+                                    li: ({ node, ...props }) => <li className="text-gray-700 dark:text-gray-100" {...props} />,
+                                    strong: ({ node, ...props }) => <strong className="font-bold text-gray-900 dark:text-white" {...props} />,
                                     code: ({ node, inline, className, children, ...props }) => {
                                         const match = /language-(\w+)/.exec(className || '');
                                         return !inline && match ? (
@@ -192,13 +192,13 @@ export default function AlgorithmTopicPage() {
                                                 {String(children).replace(/\n$/, '')}
                                             </SyntaxHighlighter>
                                         ) : (
-                                            <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                                            <code className="bg-gray-100 dark:bg-zinc-800 text-gray-800 dark:text-gray-100 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
                                                 {children}
                                             </code>
                                         );
                                     },
                                     pre: ({ node, ...props }) => <div className="my-4" {...props} />,
-                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-gray-300 pl-4 italic text-gray-600 my-4" {...props} />,
+                                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-gray-300 dark:border-blue-500 pl-4 italic text-gray-600 dark:text-gray-200 my-4" {...props} />,
                                 }}
                             >
                                 {topic.content}
@@ -209,10 +209,10 @@ export default function AlgorithmTopicPage() {
                         {topic.codeTemplate && (
                             <div className="mb-16">
                                 <div className="flex items-center justify-between mb-6">
-                                    <h2 className="text-3xl font-bold text-black">Code Template</h2>
+                                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Code Template</h2>
                                     <button
                                         onClick={() => copyCode(topic.codeTemplate)}
-                                        className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                                        className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-zinc-700 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 transition-colors"
                                     >
                                         {copied ? (
                                             <>
@@ -246,32 +246,32 @@ export default function AlgorithmTopicPage() {
 
                         {/* Practice Problems Section */}
                         <div id="problems" className="mb-16 scroll-mt-24">
-                            <h2 className="text-3xl font-bold text-black mb-6">Practice Problems</h2>
-                            <p className="text-gray-600 mb-6">
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Practice Problems</h2>
+                            <p className="text-gray-600 dark:text-gray-200 mb-6">
                                 Hand-picked problems to help you master this topic. Start with easy problems and work your way up!
                             </p>
 
-                            <div className="overflow-hidden rounded-lg border border-gray-200">
-                                <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50">
+                            <div className="overflow-hidden rounded-lg border-2 border-blue-500/50 pixel-border">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-zinc-800">
+                                    <thead className="bg-gray-50 dark:bg-zinc-900">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
                                                 Status
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
                                                 Problem
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
                                                 Difficulty
                                             </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
                                                 Platform
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-200 bg-white">
+                                    <tbody className="divide-y divide-gray-200 dark:divide-zinc-800 bg-white dark:bg-zinc-950">
                                         {topic.problems?.map((problem, idx) => (
-                                            <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                                            <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-zinc-900 transition-colors">
                                                 <td className="whitespace-nowrap px-6 py-4">
                                                     <input
                                                         type="checkbox"
@@ -295,7 +295,7 @@ export default function AlgorithmTopicPage() {
                                                         {problem.difficulty}
                                                     </span>
                                                 </td>
-                                                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-600">
+                                                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-600 dark:text-gray-200">
                                                     {problem.platform}
                                                 </td>
                                             </tr>

@@ -1,26 +1,302 @@
 @import "tailwindcss";
 
+/* ============================================
+   THE OVERCLOCKED ARCADE THEME
+   A hacked 1980s arcade cabinet running modern software
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* THE USACO PALETTE */
+  --bg-core: #0f172a;
+  /* Slate 900 - The Terminal Screen */
+  --bg-panel: #1e293b;
+  /* Slate 800 - Panels */
+  --accent: #3b82f6;
+  /* Electric Blue - Power */
+  --text-primary: #f3f4f6;
+  /* Almost White */
+  --text-muted: #94a3b8;
+  /* Slate 400 */
+  --text-secondary: #9ca3af;
+
+  /* LIGHT MODE VARIANTS */
+  --bg-light: #ffffff;
+  --bg-light-panel: #f3f4f6;
+  --text-light: #1e293b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================
+   DARK MODE CLASS
+   ============================================ */
+.dark {
+  --background: var(--bg-core);
+  --foreground: var(--text-primary);
+}
+
+/* LIGHT MODE */
+:root {
+  --background: var(--bg-light);
+  --foreground: var(--text-light);
+}
+
+/* ============================================
+   1. THE FOUNDATION
+   ============================================ */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'JetBrains Mono', monospace;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* THE RETRO GRID BACKGROUND (Dark mode only) */
+body.dark,
+.dark body {
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* ============================================
+   2. THE TYPOGRAPHY MAP
+   ============================================ */
+
+/* Main Page Titles (The Glitch) */
+h1 {
+  font-family: 'Rubik Glitch', system-ui;
+  color: var(--text-primary);
+  text-shadow: 2px 0px 0px var(--accent);
+  letter-spacing: 1px;
+}
+
+.dark h1 {
+  color: var(--text-primary);
+  text-shadow: 2px 0px 0px var(--accent);
+}
+
+/* UI Elements, Badges, Ranks (The Arcade) */
+h2,
+h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h4,
+h5,
+h6 {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+/* ============================================
+   3. SPECIAL TYPOGRAPHY CLASSES
+   ============================================ */
+
+/* Glitch Effect for Titles */
+.font-heading,
+.font-glitch {
+  font-family: 'Rubik Glitch', cursive;
+  font-weight: 400;
+}
+
+/* 8-Bit Retro for UI Elements */
+.font-retro {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  text-transform: uppercase;
+
+  /* Makes pixels crisp - no anti-aliasing */
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+/* Terminal Font for Logs/Output */
+.font-pixel,
+.console,
+.output,
+pre {
+  font-family: 'VT323', monospace;
+  font-size: 1.25rem;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark .console,
+.dark .output,
+.dark pre {
+  color: #a5b4fc;
+}
+
+/* ============================================
+   4. THE COMPONENT STYLES
+   ============================================ */
+
+/* The "Hard" Card - No soft shadows, only hard borders */
+.card-retro {
+  background: var(--bg-panel);
+  border: 1px solid var(--accent);
+  box-shadow: 4px 4px 0px 0px rgba(59, 130, 246, 0.2);
+  border-radius: 0px;
+  padding: 1.5rem;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.dark .card-retro {
+  background: var(--bg-panel);
+}
+
+.card-retro:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px rgba(59, 130, 246, 0.3);
+}
+
+/* The "Start Game" Button */
+.btn-arcade {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 12px 20px;
+  box-shadow: 4px 4px 0px 0px var(--accent);
+  transition: transform 0.1s, box-shadow 0.1s;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn-arcade:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px var(--accent);
+}
+
+.btn-arcade:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px 0px;
+  background: var(--accent);
+  color: var(--bg-core);
+}
+
+/* ============================================
+   5. CUSTOM SCROLLBAR (Arcade Style)
+   ============================================ */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-core);
+  border: 1px solid var(--accent);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border: 2px solid var(--bg-core);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-core);
+}
+
+/* ============================================
+   6. UTILITY CLASSES
+   ============================================ */
+
+/* Neon Glow Effect */
+.glow-blue {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5),
+    0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.8),
+    0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Pixel Perfect Border */
+.pixel-border {
+  border: 2px solid var(--accent);
+  box-shadow: 4px 4px 0px 0px rgba(59, 130, 246, 0.3);
+}
+
+/* CRT Screen Effect (Optional) */
+.crt-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-effect::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ============================================
+   7. ANIMATIONS
+   ============================================ */
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 0 0 var(--accent);
+  }
+
+  14% {
+    text-shadow: -2px 0 0 var(--accent);
+  }
+
+  15% {
+    text-shadow: 2px 0 0 var(--accent);
+  }
+
+  100% {
+    text-shadow: 2px 0 0 var(--accent);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-glitch {
+  animation: glitch 0.5s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0.4;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
 }

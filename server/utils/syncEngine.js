@@ -48,23 +48,17 @@ async function syncCodeforces(userId, handle) {
         // Update User's Last Contest Info & Find Missed Contests
         if (allContests.length > 0) {
             const lastContest = allContests[0];
+            const lastContestTime = lastContest.ratingUpdateTimeSeconds;
 
             // Fetch ALL contests to find what was missed
             const globalContestsResponse = await axios.get('https://codeforces.com/api/contest.list?gym=false');
             const globalContests = globalContestsResponse.data.result;
 
-            // Get list of contest IDs the user participated in
-            const participatedContestIds = new Set(allContests.map(c => c.contestId));
-
-            // Calculate 30 days ago timestamp
-            const thirtyDaysAgo = Date.now() / 1000 - (30 * 24 * 60 * 60);
-
-            // Filter: Started in last 30 days, is FINISHED, is a standard round, and user DIDN'T participate
+            // Filter: Started AFTER user's last contest, is FINISHED, and is a standard round
             const missed = globalContests.filter(c =>
-                c.startTimeSeconds > thirtyDaysAgo &&  // Last 30 days
-                c.phase === 'FINISHED' &&  // Contest is over
-                !participatedContestIds.has(c.id) &&  // User didn't participate
-                (c.name.includes('Div.') || c.name.includes('Global') || c.name.includes('Educational'))  // Standard rounds
+                c.startTimeSeconds > lastContestTime &&
+                c.phase === 'FINISHED' &&
+                (c.name.includes('Div.') || c.name.includes('Global') || c.name.includes('Educational'))
             ).sort((a, b) => b.startTimeSeconds - a.startTimeSeconds); // Newest first
 
             await User.findByIdAndUpdate(userId, {

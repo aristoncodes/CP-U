@@ -64,17 +64,17 @@ export default function DashboardPage() {
 
     if (loading) {
         return (
-            <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+            <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-950">
                 <div className="text-center">
-                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-zinc-700 border-t-white mx-auto"></div>
-                    <p className="mt-4 text-gray-400">Loading dashboard...</p>
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 dark:border-zinc-700 border-t-gray-900 dark:border-t-white mx-auto"></div>
+                    <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-zinc-950">
+        <div className="min-h-screen bg-white dark:bg-zinc-950">
             <Navbar />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -93,38 +93,30 @@ export default function DashboardPage() {
 
                     {/* Contest Radar */}
                     <ContestRadar />
-
-                    {/* Upsolve Queue - Full Width */}
-                    <div className="lg:col-span-2">
-                        <UpsolveQueueMini
-                            upsolves={upsolves}
-                            onMarkDone={handleMarkDone}
-                        />
-                    </div>
                 </div>
 
                 {/* Quick Actions */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <a
                         href="/problems"
-                        className="p-6 rounded-lg border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 transition-colors text-center"
+                        className="p-6 rounded-lg border-2 border-blue-500 bg-white dark:bg-zinc-900 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-all pixel-border group"
                     >
-                        <h3 className="text-lg font-bold text-white mb-1">Browse Problems</h3>
-                        <p className="text-sm text-gray-400">Explore curated problem sets</p>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-500 transition-colors">Browse Problems</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">Explore curated problem sets</p>
                     </a>
                     <a
                         href="/algorithms"
-                        className="p-6 rounded-lg border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 transition-colors text-center"
+                        className="p-6 rounded-lg border-2 border-blue-500 bg-white dark:bg-zinc-900 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-all pixel-border group"
                     >
-                        <h3 className="text-lg font-bold text-white mb-1">Learn Algorithms</h3>
-                        <p className="text-sm text-gray-400">Master algorithmic patterns</p>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-500 transition-colors">Learn Algorithms</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">Master algorithmic patterns</p>
                     </a>
                     <a
                         href="/profile"
-                        className="p-6 rounded-lg border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 transition-colors text-center"
+                        className="p-6 rounded-lg border-2 border-blue-500 bg-white dark:bg-zinc-900 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-all pixel-border group"
                     >
-                        <h3 className="text-lg font-bold text-white mb-1">View Profile</h3>
-                        <p className="text-sm text-gray-400">Check your stats and progress</p>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-500 transition-colors">View Profile</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">Check your stats and progress</p>
                     </a>
                 </div>
             </div>

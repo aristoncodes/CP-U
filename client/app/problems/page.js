@@ -109,14 +109,14 @@ export default function ProblemsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-zinc-950">
+        <div className="min-h-screen bg-white dark:bg-zinc-950">
             <Navbar />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 {/* Header Section */}
-                <div className="mb-6">
-                    <h1 className="text-4xl font-bold text-white mb-2">CP-31 Sheet</h1>
-                    <p className="text-gray-400">Total Solved: {totalSolved}/{totalProblems}</p>
+                <div className="mb-6 border-l-4 border-blue-500 pl-4">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2 glow-text">CP-31 Sheet</h1>
+                    <p className="text-gray-600 dark:text-blue-300">Total Solved: <span className="font-bold text-blue-500">{totalSolved}</span>/{totalProblems}</p>
                 </div>
 
                 {/* Rating Tabs - Horizontal Scrollable */}
@@ -131,8 +131,8 @@ export default function ProblemsPage() {
                                     key={rating}
                                     onClick={() => setSelectedRating(rating)}
                                     className={`px-6 py-3 rounded-lg border-2 font-semibold transition-all whitespace-nowrap ${isActive
-                                            ? `${ratingColors.bg} bg-opacity-20 ${ratingColors.border} text-white`
-                                            : `bg-transparent border-zinc-700 ${ratingColors.text} hover:border-zinc-600`
+                                        ? `${ratingColors.bg} bg-opacity-20 ${ratingColors.border} text-white`
+                                        : `bg-transparent border-zinc-700 ${ratingColors.text} hover:border-zinc-600`
                                         }`}
                                 >
                                     {rating}
@@ -143,18 +143,18 @@ export default function ProblemsPage() {
                 </div>
 
                 {/* Progress Bar - Prominent */}
-                <div className="mb-8 rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+                <div className="mb-8 rounded-lg border-2 border-blue-500 bg-white dark:bg-zinc-900 p-6 pixel-border">
                     <div className="mb-3 flex items-center justify-between">
-                        <span className="text-lg font-semibold text-white">
+                        <span className="text-lg font-semibold text-gray-900 dark:text-white font-retro text-blue-500">
                             Rating Progress
                         </span>
-                        <span className="text-xl font-bold text-white">
+                        <span className="text-xl font-bold text-blue-500">
                             {ratingProgress.solved}/{ratingProgress.total}
                         </span>
                     </div>
-                    <div className="h-3 w-full rounded-full bg-zinc-800 overflow-hidden">
+                    <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-800 border border-blue-500/30">
                         <div
-                            className={`h-3 rounded-full ${colors.bg} transition-all duration-300`}
+                            className="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-blue-500 to-cyan-400 glow-blue"
                             style={{ width: `${progressPercentage}%` }}
                         ></div>
                     </div>
@@ -164,23 +164,23 @@ export default function ProblemsPage() {
                 </div>
 
                 {/* Problems Table */}
-                <div className="overflow-hidden rounded-lg border border-zinc-800">
+                <div className="overflow-hidden rounded-lg border-2 border-blue-500/50 pixel-border">
                     <table className="min-w-full">
-                        <thead className="bg-zinc-900 border-b border-zinc-800">
+                        <thead className="bg-zinc-900 border-b-2 border-blue-500">
                             <tr>
-                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-blue-400">
                                     Status
                                 </th>
-                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-blue-400">
                                     Problem
                                 </th>
-                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-blue-400">
                                     Platform
                                 </th>
-                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-blue-400">
                                     Tags
                                 </th>
-                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-blue-400">
                                     Actions
                                 </th>
                             </tr>
@@ -196,7 +196,7 @@ export default function ProblemsPage() {
                                 selectedProblems.map((problem, idx) => (
                                     <tr
                                         key={problem.id}
-                                        className={`transition-colors hover:bg-zinc-800 ${idx % 2 === 0 ? 'bg-zinc-950' : 'bg-zinc-900'
+                                        className={`transition-colors hover:bg-zinc-800/50 border-l-2 hover:border-l-blue-500 ${idx % 2 === 0 ? 'bg-zinc-950' : 'bg-zinc-900'}
                                             }`}
                                     >
                                         <td className="whitespace-nowrap px-6 py-4">
