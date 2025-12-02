@@ -7,7 +7,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+// CORS configuration for Vercel deployment
+app.use(cors({
+    origin: [
+        'http://localhost:3000', // Local development
+        'https://cp-universe.vercel.app', // Production frontend (update with your actual URL)
+        process.env.FRONTEND_URL // Allow environment variable override
+    ].filter(Boolean),
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Database Connection
@@ -48,6 +58,11 @@ app.post('/api/ai/explain', (req, res) => {
     res.status(501).json({ message: 'Not Implemented: AI Explain' });
 });
 
+// Start server (for local development)
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
+
+// Export for Vercel serverless deployment
+module.exports = app;
