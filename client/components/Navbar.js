@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { LogOut, User, Moon, Sun } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import Logo from './Logo';
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -44,8 +45,9 @@ export default function Navbar() {
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo */}
-                    <Link href={isAuthenticated ? '/dashboard' : '/'} className="flex items-center">
-                        <span className="text-xl font-bold text-gray-900 dark:text-white">CP-U</span>
+                    <Link href={isAuthenticated ? '/dashboard' : '/'} className="flex items-center gap-3 group">
+                        <Logo className="w-10 h-10 transition-transform group-hover:scale-110" />
+                        <span className="text-xl font-bold text-gray-900 dark:text-white font-mono tracking-tighter">CP-U</span>
                     </Link>
 
                     {/* Navigation Links */}
