@@ -24,6 +24,8 @@ app.options(/(.*)/, cors()); // Enable preflight for all routes
 app.use(express.json());
 
 // Database Connection
+// Database Connection
+let dbConnectionError = null;
 const connectDB = async () => {
     try {
         if (!process.env.MONGO_URI) {
@@ -33,7 +35,8 @@ const connectDB = async () => {
         console.log('✅ MongoDB Connected:', mongoose.connection.host);
     } catch (err) {
         console.error('❌ DB Connection Error:', err.message);
-        process.exit(1);
+        dbConnectionError = err.message;
+        // process.exit(1); // Don't crash, let health check report the error
     }
 };
 connectDB();
@@ -53,9 +56,10 @@ app.get('/', (req, res) => {
 
 app.get('/api/health', (req, res) => {
     res.json({
-        status: 'ok',
+        status: dbConnectionError ? 'error' : 'ok',
         dbState: mongoose.connection.readyState, // 0: disconnected, 1: connected, 2: connecting, 3: disconnecting
         dbHost: mongoose.connection.host,
+        dbError: dbConnectionError,
         env: {
             mongo: !!process.env.MONGO_URI,
             jwt: !!process.env.JWT_SECRET
