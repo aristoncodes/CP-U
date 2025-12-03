@@ -8,16 +8,19 @@ const PORT = process.env.PORT || 5001;
 
 // Middleware
 // CORS configuration for Vercel deployment
+// Middleware
+// CORS configuration for Vercel deployment
 app.use(cors({
     origin: [
         'http://localhost:3000',
+        'http://localhost:3001',
         'https://cp-u-frontend.vercel.app'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.options('*', cors()); // Enable preflight for all routes
+app.options(/(.*)/, cors()); // Enable preflight for all routes
 app.use(express.json());
 
 // Database Connection
