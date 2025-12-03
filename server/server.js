@@ -48,6 +48,18 @@ app.get('/', (req, res) => {
     res.send('CP-U API is running');
 });
 
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        dbState: mongoose.connection.readyState, // 0: disconnected, 1: connected, 2: connecting, 3: disconnecting
+        dbHost: mongoose.connection.host,
+        env: {
+            mongo: !!process.env.MONGO_URI,
+            jwt: !!process.env.JWT_SECRET
+        }
+    });
+});
+
 // User Routes
 
 
