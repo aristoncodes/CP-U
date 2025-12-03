@@ -9,7 +9,10 @@ const PORT = process.env.PORT || 5001;
 // Middleware
 // CORS configuration for Vercel deployment
 app.use(cors({
-    origin: "*", // Allow all origins for initial deployment (update to specific domain later)
+    origin: [
+        'http://localhost:3000',
+        'https://cp-u-frontend.vercel.app'
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
