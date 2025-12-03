@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
                         }
                     };
                     // Ideally verify token with backend here
-                    // const res = await axios.get('http://localhost:5000/api/auth/user', config);
+                    // const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/user`, config);
                     // setUser(res.data);
                     setUser({ token }); // Temporary: just set token existence
                 } catch (err) {
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, { email, password });
             localStorage.setItem('token', res.data.token);
             setUser({ token: res.data.token });
             router.push('/dashboard');
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (username, email, password) => {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', { username, email, password });
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, { username, email, password });
             localStorage.setItem('token', res.data.token);
             setUser({ token: res.data.token });
             router.push('/dashboard');

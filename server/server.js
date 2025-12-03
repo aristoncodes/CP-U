@@ -4,16 +4,12 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 // CORS configuration for Vercel deployment
 app.use(cors({
-    origin: [
-        'http://localhost:3000', // Local development
-        'https://cp-universe.vercel.app', // Production frontend (update with your actual URL)
-        process.env.FRONTEND_URL // Allow environment variable override
-    ].filter(Boolean),
+    origin: "*", // Allow all origins for initial deployment (update to specific domain later)
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -59,7 +55,6 @@ app.post('/api/ai/explain', (req, res) => {
 });
 
 // Start server (for local development)
-const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
