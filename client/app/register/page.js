@@ -47,7 +47,12 @@ export default function RegisterPage() {
             // Redirect to dashboard
             router.push('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'REGISTRATION FAILED. TRY AGAIN.');
+            console.error('Registration Error:', err);
+            const errorMsg = err.response?.data?.message ||
+                err.response?.data?.msg ||
+                err.message ||
+                'REGISTRATION FAILED. TRY AGAIN.';
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }
