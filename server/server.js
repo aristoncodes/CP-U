@@ -13,10 +13,11 @@ app.use(cors({
         'http://localhost:3000',
         'https://cp-u-frontend.vercel.app'
     ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.options('*', cors()); // Enable preflight for all routes
 app.use(express.json());
 
 // Database Connection
