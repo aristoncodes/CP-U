@@ -23,10 +23,13 @@ app.use(express.json());
 // Database Connection
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/cp-universe');
-        console.log('✅ Local MongoDB Connected');
+        if (!process.env.MONGO_URI) {
+            throw new Error('MONGO_URI environment variable is not set');
+        }
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('✅ MongoDB Connected:', mongoose.connection.host);
     } catch (err) {
-        console.error('❌ DB Connection Error:', err);
+        console.error('❌ DB Connection Error:', err.message);
         process.exit(1);
     }
 };
