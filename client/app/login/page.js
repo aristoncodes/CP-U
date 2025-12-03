@@ -44,37 +44,39 @@ export default function LoginPage() {
 
     return (
         <AuthLayout testimonial={testimonial}>
-            <div className="space-y-6">
+            <div className="space-y-6 card-retro bg-panel border-accent/30 p-8 box-shadow-neon">
                 <div className="text-center">
-                    <h1 className="text-3xl font-bold text-black">Welcome Back</h1>
-                    <p className="mt-2 text-gray-600">Sign in to continue to CP-U</p>
+                    <h1 className="text-3xl font-heading text-white glow-text">
+                        PLAYER 1 READY<span className="animate-blink">?</span>
+                    </h1>
+                    <p className="mt-2 text-gray-400 font-mono text-sm uppercase tracking-widest">Insert Coin to Continue</p>
                 </div>
 
                 {error && (
-                    <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-600">
-                        {error}
+                    <div className="pixel-border bg-red-900/20 border-red-500 p-3 text-sm text-red-400 font-mono uppercase">
+                        [ERROR] {error}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
+                        <label htmlFor="email" className="block text-xs font-retro text-accent uppercase tracking-wider">
+                            User ID (Email)
                         </label>
                         <input
                             id="email"
                             type="email"
-                            placeholder="you@example.com"
+                            placeholder="PLAYER_ONE@EXAMPLE.COM"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-black placeholder-gray-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
                             required
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
+                        <label htmlFor="password" className="block text-xs font-retro text-accent uppercase tracking-wider">
+                            Passcode
                         </label>
                         <input
                             id="password"
@@ -82,7 +84,7 @@ export default function LoginPage() {
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-black placeholder-gray-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                             required
                         />
                     </div>
@@ -90,16 +92,16 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-md bg-black px-4 py-2 font-semibold text-white transition-colors hover:bg-gray-800 disabled:bg-gray-400"
+                        className="w-full btn-arcade mt-4 hover:bg-accent hover:text-white transition-all duration-200 animate-pulse hover:animate-none"
                     >
-                        {loading ? 'Signing in...' : 'Sign In'}
+                        {loading ? 'CONNECTING...' : 'PRESS START'}
                     </button>
                 </form>
 
-                <div className="text-center text-sm text-gray-600">
-                    Don't have an account?{' '}
-                    <Link href="/register" className="font-medium text-black hover:underline">
-                        Sign up
+                <div className="text-center text-sm font-mono text-gray-500 uppercase">
+                    New Player?{' '}
+                    <Link href="/register" className="text-accent hover:text-blue-400 hover:underline">
+                        Join Server
                     </Link>
                 </div>
             </div>

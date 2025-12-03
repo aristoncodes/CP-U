@@ -28,15 +28,22 @@ app.use(express.json());
 let dbConnectionError = null;
 const connectDB = async () => {
     try {
-        if (!process.env.MONGO_URI) {
+        let uri = process.env.MONGO_URI;
+        if (!uri) {
             throw new Error('MONGO_URI environment variable is not set');
         }
-        await mongoose.connect(process.env.MONGO_URI);
+        // Sanitize URI: remove surrounding quotes if present (common Vercel mistake)
+        if (uri.startsWith('"') && uri.endsWith('"')) {
+            uri = uri.slice(1, -1);
+        }
+
+        await mongoose.connect(uri, {
+            serverSelectionTimeoutMS: 5000 // Fail fast if connection issues
+        });
         console.log('✅ MongoDB Connected:', mongoose.connection.host);
     } catch (err) {
         console.error('❌ DB Connection Error:', err.message);
         dbConnectionError = err.message;
-        // process.exit(1); // Don't crash, let health check report the error
     }
 };
 connectDB();

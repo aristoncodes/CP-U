@@ -27,7 +27,7 @@ export default function RegisterPage() {
 
         // Validate passwords match
         if (formData.password !== formData.confirmPassword) {
-            setError('Passwords do not match');
+            setError('PASSCODES DO NOT MATCH');
             return;
         }
 
@@ -47,7 +47,7 @@ export default function RegisterPage() {
             // Redirect to dashboard
             router.push('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed. Please try again.');
+            setError(err.response?.data?.message || 'REGISTRATION FAILED. TRY AGAIN.');
         } finally {
             setLoading(false);
         }
@@ -60,54 +60,56 @@ export default function RegisterPage() {
 
     return (
         <AuthLayout testimonial={testimonial}>
-            <div className="space-y-6">
+            <div className="space-y-6 card-retro bg-panel border-accent/30 p-8 box-shadow-neon">
                 <div className="text-center">
-                    <h1 className="text-3xl font-bold text-black">Create Account</h1>
-                    <p className="mt-2 text-gray-600">Start your CP journey today</p>
+                    <h1 className="text-3xl font-heading text-white glow-text">
+                        NEW GAME<span className="animate-blink">_</span>
+                    </h1>
+                    <p className="mt-2 text-gray-400 font-mono text-sm uppercase tracking-widest">Initialize Character Creation</p>
                 </div>
 
                 {error && (
-                    <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-600">
-                        {error}
+                    <div className="pixel-border bg-red-900/20 border-red-500 p-3 text-sm text-red-400 font-mono uppercase">
+                        [ERROR] {error}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                            Username
+                        <label htmlFor="username" className="block text-xs font-retro text-accent uppercase tracking-wider">
+                            Character Name
                         </label>
                         <input
                             id="username"
                             name="username"
                             type="text"
-                            placeholder="johndoe"
+                            placeholder="PLAYER_ONE"
                             value={formData.username}
                             onChange={handleChange}
-                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-black placeholder-gray-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
                             required
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
+                        <label htmlFor="email" className="block text-xs font-retro text-accent uppercase tracking-wider">
+                            User ID (Email)
                         </label>
                         <input
                             id="email"
                             name="email"
                             type="email"
-                            placeholder="you@example.com"
+                            placeholder="PLAYER@EXAMPLE.COM"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-black placeholder-gray-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
                             required
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
+                        <label htmlFor="password" className="block text-xs font-retro text-accent uppercase tracking-wider">
+                            Passcode
                         </label>
                         <input
                             id="password"
@@ -116,14 +118,14 @@ export default function RegisterPage() {
                             placeholder="••••••••"
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-black placeholder-gray-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                             required
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                            Confirm Password
+                        <label htmlFor="confirmPassword" className="block text-xs font-retro text-accent uppercase tracking-wider">
+                            Confirm Passcode
                         </label>
                         <input
                             id="confirmPassword"
@@ -132,7 +134,7 @@ export default function RegisterPage() {
                             placeholder="••••••••"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-black placeholder-gray-400 focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                             required
                         />
                     </div>
@@ -140,16 +142,16 @@ export default function RegisterPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-md bg-black px-4 py-2 font-semibold text-white transition-colors hover:bg-gray-800 disabled:bg-gray-400"
+                        className="w-full btn-arcade mt-4 hover:bg-accent hover:text-white transition-all duration-200 animate-pulse hover:animate-none"
                     >
-                        {loading ? 'Creating account...' : 'Sign Up'}
+                        {loading ? 'INITIALIZING...' : 'JOIN SERVER'}
                     </button>
                 </form>
 
-                <div className="text-center text-sm text-gray-600">
-                    Already have an account?{' '}
-                    <Link href="/login" className="font-medium text-black hover:underline">
-                        Sign in
+                <div className="text-center text-sm font-mono text-gray-500 uppercase">
+                    Already Registered?{' '}
+                    <Link href="/login" className="text-accent hover:text-blue-400 hover:underline">
+                        Resume Game
                     </Link>
                 </div>
             </div>
