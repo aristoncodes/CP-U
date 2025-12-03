@@ -15,6 +15,14 @@ module.exports = {
                 pixel: ['"VT323"', 'monospace'],
                 mono: ['"JetBrains Mono"', 'monospace'],
             },
+            colors: {
+                core: 'var(--bg-core)',
+                panel: 'var(--bg-panel)',
+                accent: 'var(--accent)',
+                primary: 'var(--text-primary)',
+                muted: 'var(--text-muted)',
+                secondary: 'var(--text-secondary)',
+            },
         },
     },
     plugins: [

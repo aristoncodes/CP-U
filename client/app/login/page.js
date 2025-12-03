@@ -69,7 +69,7 @@ export default function LoginPage() {
                             placeholder="PLAYER_ONE@EXAMPLE.COM"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
+                            className="w-full bg-slate-900 border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
                             required
                         />
                     </div>
@@ -84,7 +84,7 @@ export default function LoginPage() {
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
+                            className="w-full bg-slate-900 border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                             required
                         />
                     </div>

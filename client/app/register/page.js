@@ -86,7 +86,7 @@ export default function RegisterPage() {
                             placeholder="PLAYER_ONE"
                             value={formData.username}
                             onChange={handleChange}
-                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
+                            className="w-full bg-slate-900 border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
                             required
                         />
                     </div>
@@ -102,7 +102,7 @@ export default function RegisterPage() {
                             placeholder="PLAYER@EXAMPLE.COM"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
+                            className="w-full bg-slate-900 border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors uppercase"
                             required
                         />
                     </div>
@@ -118,7 +118,7 @@ export default function RegisterPage() {
                             placeholder="••••••••"
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
+                            className="w-full bg-slate-900 border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                             required
                         />
                     </div>
@@ -134,7 +134,7 @@ export default function RegisterPage() {
                             placeholder="••••••••"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className="w-full bg-core border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
+                            className="w-full bg-slate-900 border-2 border-slate-700 px-4 py-3 text-white placeholder-gray-600 font-mono focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                             required
                         />
                     </div>
